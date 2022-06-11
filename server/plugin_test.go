@@ -59,6 +59,9 @@ func TestFileWillBeUpload(t *testing.T) {
 
 		fi := &model.FileInfo{
 			Extension: "PNG",
+			CreatorId: "TEST",
+			PostId:    "0",
+			Id:        "0",
 		}
 
 		r := bytes.NewReader(data)
@@ -75,7 +78,7 @@ func TestFileWillBeUpload(t *testing.T) {
 		sizeOfMessage := steganography.GetMessageSizeFromImage(img) // retrieving message size to decode in the next line
 
 		msg := steganography.Decode(sizeOfMessage, img)
-		assert.Equal(t, string(msg), "Test Watermark")
+		assert.Equal(t, string(msg), "Test Watermark:TEST:0")
 	})
 
 	t.Run("jpg watermark", func(t *testing.T) {
@@ -95,6 +98,9 @@ func TestFileWillBeUpload(t *testing.T) {
 
 		fi := &model.FileInfo{
 			Extension: "JPG",
+			CreatorId: "TEST",
+			PostId:    "0",
+			Id:        "0",
 		}
 
 		r := bytes.NewReader(data)
@@ -111,6 +117,6 @@ func TestFileWillBeUpload(t *testing.T) {
 		sizeOfMessage := steganography.GetMessageSizeFromImage(img) // retrieving message size to decode in the next line
 
 		msg := steganography.Decode(sizeOfMessage, img)
-		assert.Equal(t, string(msg), "Test Watermark")
+		assert.Equal(t, string(msg), "Test Watermark:TEST:0")
 	})
 }

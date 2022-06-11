@@ -43,7 +43,9 @@ func (p *Plugin) FileWillBeUploaded(_ *plugin.Context, info *model.FileInfo, fil
 		configuration := p.getConfiguration()
 		w := &bytes.Buffer{}
 
-		err = steganography.Encode(w, img, []byte(configuration.WaterMark))
+		watermark := configuration.WaterMark + ":" + info.CreatorId + ":" + info.Id
+
+		err = steganography.Encode(w, img, []byte(watermark))
 		if err != nil {
 			errMsg := "Failed to encode watermark into image: " + err.Error()
 			p.API.LogWarn(errMsg)
